@@ -1,0 +1,26 @@
+body {
+    font-family: 'Segoe UI' !important;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 40rem;
+    height: 40rem;
+    border: 1px solid black;
+}
+
+.board-container{
+    display: flex;
+    justify-content: center;
+    padding: 10rem 0;
+}
+
+.bord-box {
+    border: 1px solid rgb(92, 92, 92);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    font-weight: 300;
+}
