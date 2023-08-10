@@ -19,14 +19,8 @@ gameBoard.addSign('o', 2)
 
 
 
-//////////////
-
-// const boardBox = document.getElementsByClassName('bord-box')
-
 
 const boardBox = document.querySelectorAll('.bord-box');
-
-// console.log(boardBox)
 
 
 boardBox.forEach(box => {
