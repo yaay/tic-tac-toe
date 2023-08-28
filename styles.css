@@ -2,6 +2,11 @@ body {
     font-family: 'Segoe UI' !important;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
 .board {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -13,7 +18,30 @@ body {
 .board-container{
     display: flex;
     justify-content: center;
-    padding: 10rem 0;
+    padding: 4rem 0;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.text-center {
+    font-size: 3rem;
+    padding-top: 1rem;
+}
+
+.info-screen {
+    font-size: 30px;
+    padding-top: 2rem;
 }
 
 .bord-box {
