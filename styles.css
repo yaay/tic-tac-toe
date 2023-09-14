@@ -52,3 +52,8 @@ body {
     font-size: 5rem;
     font-weight: 300;
 }
+
+.resetBtn {
+    display: flex;
+    justify-content: center;
+}

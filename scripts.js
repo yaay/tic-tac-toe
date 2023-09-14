@@ -32,6 +32,8 @@ const gameController = () => {
     let win = false
     const getWin = () => win
 
+    let gameOver = false
+
     const board = gameBoard();
 
     let activePlayer = PlayerX
@@ -56,8 +58,8 @@ const gameController = () => {
             if (!win) {
                 switchTurns()
             }
-            
-            
+
+
         }
     }
 
@@ -80,8 +82,9 @@ const gameController = () => {
         ) {
             console.log(`winnn ${activePlayer.sign}`)
             win = true
-        } 
+        }
     };
+
 
     const checkDraw = () => {
         // console.log(board.board)
@@ -92,13 +95,24 @@ const gameController = () => {
         }
     }
 
+    const reset = () => {
+        // console.log(board.board[1])
+        for (let i = 0; i < 9; i++) {
+            // console.log(board.board[i])
+            board.board[i] = "";
+            win = false;
+        }
+        console.log(board.board)
+    }
+
 
 
     return {
-        playTurn, getActivePlayer, board, getWin, checkDraw
+        playTurn, getActivePlayer, board, getWin, checkDraw, reset, win, gameOver
     }
 
 }
+
 
 
 const displayController = (() => {
@@ -107,23 +121,45 @@ const displayController = (() => {
     const sign = gc.getActivePlayer()
     const draw = gc.checkDraw()
 
+    const resetButton = document.createElement("button");
+    resetButton.innerHTML = "Reset";
+    resetButton.addEventListener("click", (e) => {
+        gc.reset();
+        boardBox.forEach(box => {
+            box.innerHTML = "";
+        })
+        if (gc.getActivePlayer().sign === 'O') {
+            gc.getActivePlayer().sign = 'X'
+        }
+        infoScreen.textContent = `It's Player ${gc.getActivePlayer().sign} Turn`
+    });
+
     const infoScreen = document.querySelector('.info-screen')
 
+    const btnDiv = document.getElementById("btnDiv");
+
     boardBox.forEach(box => {
-        box.addEventListener("click", (e) => {
-            const boardPosition = e.target.dataset.index
-            gc.playTurn(boardPosition)
-            box.innerHTML = gc.board.board[boardPosition];
-            if (!gc.getWin()) {
-                console.log(gc.getWin())
-                infoScreen.textContent = `It's Player ${gc.getActivePlayer().sign} Turn`
-            } else if (gc.board.board.every(index => index != '')) {
-                infoScreen.textContent = `It's a draw!`
-            } else {
-                infoScreen.textContent = `Player ${gc.getActivePlayer().sign} Won!`
-            }
-            
-        })
+        if (!gc.gameOver) {
+            box.addEventListener("click", (e) => {
+                const boardPosition = e.target.dataset.index
+                gc.playTurn(boardPosition)
+                box.innerHTML = gc.board.board[boardPosition];
+                if (!gc.getWin()) {
+                    console.log(gc.getWin())
+                    infoScreen.textContent = `It's Player ${gc.getActivePlayer().sign} Turn`
+                } else if (gc.board.board.every(index => index != '')) {
+                    infoScreen.textContent = `It's a draw!`
+                    btnDiv.appendChild(resetButton)
+    
+                } else if (gc.getWin) {
+                    infoScreen.textContent = `Player ${gc.getActivePlayer().sign} Won!`
+                    btnDiv.appendChild(resetButton)
+                    gc.gameOver = true
+                    console.log(gc.gameOver)
+                }
+    
+            })
+        }
     })
 
 })();
